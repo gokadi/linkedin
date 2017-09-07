@@ -35,23 +35,23 @@ from time import sleep
 
 
 def linkedin_companies_parser(url):
-    client = requests.Session()
+    # client = requests.Session()
     # client.proxies.update(p)
 
-    HOMEPAGE_URL = 'https://linkedin.com/'
-    LOGIN_URL = 'https://www.linkedin.com/uas/login-submit'
-
-    html = client.get(HOMEPAGE_URL, verify=False).content
-    soup = BeautifulSoup(html, 'lxml')
-    csrf = soup.find(id="loginCsrfParam-login")['value']
-
-    login_information = {
-        'session_key':'Login',
-        'session_password':'Password',
-        'loginCsrfParam': csrf,
-    }
-
-    client.post(LOGIN_URL, data=login_information, verify=False)
+    # HOMEPAGE_URL = 'https://linkedin.com/'
+    # LOGIN_URL = 'https://www.linkedin.com/uas/login-submit'
+    #
+    # html = requests.get(HOMEPAGE_URL, verify=False).content
+    # soup = BeautifulSoup(html, 'lxml')
+    # csrf = soup.find(id="loginCsrfParam-login")['value']
+    #
+    # login_information = {
+    #     'session_key':'Login',
+    #     'session_password':'Password',
+    #     'loginCsrfParam': csrf,
+    # }
+    #
+    # # client.post(LOGIN_URL, data=login_information, verify=False)
 
 
     for i in range(5):
@@ -60,7 +60,7 @@ def linkedin_companies_parser(url):
                 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'
             }
             print "Fetching :", url
-            response = client.get(url, headers=headers, verify=False)
+            response = requests.get(url, headers=headers, verify=False)
             formatted_response = response.content.replace('<!--', '').replace('-->', '')
             doc = html.fromstring(formatted_response)
             datafrom_xpath = doc.xpath('//code[@id="stream-promo-top-bar-embed-id-content"]//text()')
